@@ -7,9 +7,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class OrderDto {
     private Long id;
-    private Long companyId;
-    private Long originId;
-    private Long destinationId;
-    private Long driverId;
+    private Company company;
+    private Location origin;
+    private Location destination;
+    private Driver driver;
+    private Double value;
+    private String currency;
     private String status;
 }

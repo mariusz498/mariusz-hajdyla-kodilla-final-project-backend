@@ -48,6 +48,14 @@ public class Order {
     private Driver driver;
 
     @NotNull
+    @Column(name = "value")
+    private Double value;
+
+    @NotNull
+    @Column(name = "currency")
+    private String currency;
+
+    @NotNull
     @Column(name = "status")
     private String status;
 }
