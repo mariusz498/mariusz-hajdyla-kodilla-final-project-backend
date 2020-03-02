@@ -50,7 +50,6 @@ public class Location {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "order_id")
     private List<Order> ordersFrom;
 
     @NotNull
@@ -60,6 +59,5 @@ public class Location {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "order_id")
     private List<Order> ordersTo;
 }
