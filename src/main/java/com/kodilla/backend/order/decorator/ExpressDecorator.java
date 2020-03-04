@@ -1,14 +1,17 @@
 package com.kodilla.backend.order.decorator;
 
 public class ExpressDecorator extends AbstractOrderDecorator {
-    private Double distance;
-    public ExpressDecorator(OrderInterface theOrder, Double distance) {
+    public ExpressDecorator(OrderInterface theOrder) {
         super(theOrder);
-        this.distance = distance;
     }
 
     @Override
     public Double getCost() {
-        return super.getCost() + (new Double(distance * 1.2));
+        return super.getCost() + (new Double(getDistance() * 0.2));
+    }
+
+    @Override
+    public String getDescription() {
+        return super.getDescription() + ", express";
     }
 }

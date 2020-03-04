@@ -17,4 +17,9 @@ public class AbstractOrderDecorator implements OrderInterface {
     public String getDescription() {
         return orderInterface.getDescription();
     }
+
+    @Override
+    public Double getDistance() {
+        return orderInterface.getDistance();
+    }
 }
