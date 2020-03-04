@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class OrderDto {
     private Long id;
+    private String description;
     private Company company;
     private Location origin;
     private Location destination;

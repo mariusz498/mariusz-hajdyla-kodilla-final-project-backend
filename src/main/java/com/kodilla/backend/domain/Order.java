@@ -29,6 +29,10 @@ public class Order {
     private Long id;
 
     @NotNull
+    @Column(name = "description")
+    private String description;
+
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "company_id")
     private Company company;
