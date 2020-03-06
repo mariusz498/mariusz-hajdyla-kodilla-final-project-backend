@@ -6,6 +6,8 @@ import com.kodilla.backend.mapper.CompanyMapper;
 import com.kodilla.backend.service.DbService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -20,7 +22,7 @@ public class CompanyController {
     private DbService dbService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/companies")
-    public List<CompanyDto> getCompanys() {
+    public List<CompanyDto> getCompanies() {
         return companyMapper.mapToCompanyDtoList(dbService.getAllCompanies());
     }
 
@@ -40,8 +42,8 @@ public class CompanyController {
         return companyMapper.mapToCompanyDto(dbService.saveCompany(companyMapper.mapToCompany(companyDto)));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/companies", consumes = APPLICATION_JSON_VALUE)
-    public void createCompany(@RequestBody CompanyDto companyDto) {
-        dbService.saveCompany(companyMapper.mapToCompany(companyDto));
+    @RequestMapping(method = RequestMethod.POST, value = "/companies", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public CompanyDto createCompany(@RequestBody CompanyDto companyDto) {
+        return companyMapper.mapToCompanyDto(dbService.saveCompany(companyMapper.mapToCompany(companyDto)));
     }
 }
