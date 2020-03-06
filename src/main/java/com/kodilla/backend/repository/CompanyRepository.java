@@ -10,6 +10,8 @@ public interface CompanyRepository extends CrudRepository<Company, Long> {
     @Override
     List<Company> findAll();
 
+    Optional<Company> findByLogin(String login);
+
     @Override
     Optional<Company> findById(Long id);
 

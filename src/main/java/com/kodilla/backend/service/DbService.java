@@ -71,6 +71,9 @@ public class DbService {
     public Optional<Company> getCompany(Long id) {
         return companyRepository.findById(id);
     }
+    public Optional<Company> getCompanyByLogin(String login) {
+        return companyRepository.findByLogin(login);
+    }
     public Company saveCompany(final Company company) {
         return companyRepository.save(company);
     }

@@ -1,5 +1,6 @@
 package com.kodilla.backend.controller;
 
+import com.kodilla.backend.domain.Company;
 import com.kodilla.backend.domain.CompanyDto;
 import com.kodilla.backend.domain.CompanyNotFoundException;
 import com.kodilla.backend.mapper.CompanyMapper;
@@ -26,12 +27,17 @@ public class CompanyController {
         return companyMapper.mapToCompanyDtoList(dbService.getAllCompanies());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/companies/{companyId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/companies/id={companyId}")
     public CompanyDto getCompany(@PathVariable Long companyId) throws CompanyNotFoundException {
         return companyMapper.mapToCompanyDto(dbService.getCompany(companyId).orElseThrow(CompanyNotFoundException::new));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/companys/{companyId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/companies/login={login}")
+    public CompanyDto getCompanyByLogin(@PathVariable String login) throws CompanyNotFoundException {
+        return companyMapper.mapToCompanyDto(dbService.getCompanyByLogin(login).orElse(new Company()));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/companies/{companyId}")
     public void deleteCompany(@PathVariable Long companyId){
         dbService.deleteCompany(companyId);
 
