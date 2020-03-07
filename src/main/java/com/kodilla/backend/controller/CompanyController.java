@@ -7,8 +7,6 @@ import com.kodilla.backend.mapper.CompanyMapper;
 import com.kodilla.backend.service.DbService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -33,7 +31,7 @@ public class CompanyController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/companies/login={login}")
-    public CompanyDto getCompanyByLogin(@PathVariable String login) throws CompanyNotFoundException {
+    public CompanyDto getCompanyByLogin(@PathVariable String login) {
         return companyMapper.mapToCompanyDto(dbService.getCompanyByLogin(login).orElse(new Company()));
     }
 

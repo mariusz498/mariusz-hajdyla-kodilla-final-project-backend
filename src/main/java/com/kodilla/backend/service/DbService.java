@@ -45,6 +45,9 @@ public class DbService {
     public Optional<Driver> getDriver(Long id) {
         return driverRepository.findById(id);
     }
+    public Optional<Driver> getDriverByLogin(String login) {
+        return driverRepository.findByLogin(login);
+    }
     public Driver saveDriver(final Driver driver) {
         return driverRepository.save(driver);
     }
