@@ -43,7 +43,7 @@ public class HereApiClient {
             return new ArrayList<>();
         }
     }
-
+//TODO change OrderDto to OrderRequest with Location origin, Location destination, options.
     public Integer searchRouteLength(OrderDto order) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getRoutingEndpoint())
