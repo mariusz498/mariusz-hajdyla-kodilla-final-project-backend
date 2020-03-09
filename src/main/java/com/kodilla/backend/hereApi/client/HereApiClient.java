@@ -1,8 +1,8 @@
 package com.kodilla.backend.hereApi.client;
 
 import com.kodilla.backend.controller.Template;
-import com.kodilla.backend.hereApi.domain.HereApiLocation;
-import com.kodilla.backend.hereApi.domain.HereItem;
+import com.kodilla.backend.domain.OrderDto;
+import com.kodilla.backend.hereApi.domain.*;
 import com.kodilla.backend.hereApi.config.HereConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class HereApiClient {
     @Autowired
     private Template restTemplate;
 
-    public List<HereApiLocation> getLocations(Double lat, Double lng, String query, String countryCode) {
+    public List<HereApiLocation> searchLocations(Double lat, Double lng, String query, String countryCode) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getSearchEndpoint())
                 .queryParam("apiKey", hereConfig.getApiKey())
@@ -41,6 +41,26 @@ public class HereApiClient {
             return locationList;
         } catch (RestClientException e) {
             return new ArrayList<>();
+        }
+    }
+
+    public Integer searchRouteLength(OrderDto order) {
+
+        URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getRoutingEndpoint())
+                .queryParam("apiKey", hereConfig.getApiKey())
+                //TODO add required queryParams
+                .build().encode().toUri();
+
+        System.out.println(url);
+
+        try {
+            HereApiRoutes routeResponse = restTemplate.getForObject(url, HereApiRoutes.class);
+            List<HereRouteSummary> routesList;
+            routesList = ofNullable(routeResponse.getSections().get(0).getSummary()).orElse(new ArrayList<>());
+            return ofNullable(routesList.get(0).getLenghts().get(0).getLength()).orElse(new Integer(0));
+        }
+        catch (RestClientException e) {
+            return new Integer(0);
         }
     }
 }

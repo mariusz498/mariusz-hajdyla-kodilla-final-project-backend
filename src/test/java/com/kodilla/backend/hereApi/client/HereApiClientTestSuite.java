@@ -19,7 +19,7 @@ public class HereApiClientTestSuite {
     @Test
     public void getLocationsTest() {
         //Given
-        List<HereApiLocation> response = hereApiClient.getLocations(42.36399, -71.05493, "restaurant", "USA");
+        List<HereApiLocation> response = hereApiClient.searchLocations(42.36399, -71.05493, "restaurant", "USA");
         //When
         response.stream().forEach(r -> System.out.println(r.getAddress().getLabel() + ", " + r.getPosition().getLatitude() + r.getPosition().getLongitude()));
         //Then
