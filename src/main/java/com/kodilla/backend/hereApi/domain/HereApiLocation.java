@@ -1,4 +1,4 @@
-package com.kodilla.backend.domain;
+package com.kodilla.backend.hereApi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HereLocationProperties {
-    @JsonProperty("label")
-    private String label;
+public class HereApiLocation {
+
+    @JsonProperty("address")
+    private HereLocationProperties address;
+
+    @JsonProperty("position")
+    private HereApiPosition position;
 }

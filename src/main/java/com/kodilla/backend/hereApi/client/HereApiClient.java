@@ -1,8 +1,8 @@
 package com.kodilla.backend.hereApi.client;
 
 import com.kodilla.backend.controller.Template;
-import com.kodilla.backend.domain.HereApiLocation;
-import com.kodilla.backend.domain.HereItem;
+import com.kodilla.backend.hereApi.domain.HereApiLocation;
+import com.kodilla.backend.hereApi.domain.HereItem;
 import com.kodilla.backend.hereApi.config.HereConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Optional.ofNullable;

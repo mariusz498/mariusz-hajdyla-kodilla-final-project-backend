@@ -1,4 +1,4 @@
-package com.kodilla.backend.domain;
+package com.kodilla.backend.hereApi.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
