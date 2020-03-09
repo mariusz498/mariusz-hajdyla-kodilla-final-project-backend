@@ -6,17 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HereApiLocation {
-
-    @JsonProperty("address")
-    private HereLocationProperties address;
-
-    @JsonProperty("position")
-    private HereApiPosition position;
+public class HereLocationProperties {
+    @JsonProperty("label")
+    private String label;
 }
