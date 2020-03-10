@@ -1,6 +1,5 @@
 package com.kodilla.backend.hereApi.client;
 
-import com.kodilla.backend.domain.Location;
 import com.kodilla.backend.domain.LocationDto;
 import com.kodilla.backend.domain.OrderRequestDto;
 import com.kodilla.backend.hereApi.domain.HereApiLocation;
