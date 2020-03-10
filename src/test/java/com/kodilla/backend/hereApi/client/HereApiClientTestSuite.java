@@ -20,6 +20,8 @@ public class HereApiClientTestSuite {
     @Autowired
     private HereApiClient hereApiClient;
 
+
+    //TODO uzupełnić testy o asercje
     @Test
     public void getLocationsTest() {
         //Given
