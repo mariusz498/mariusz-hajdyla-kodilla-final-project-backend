@@ -6,13 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HereApiRouteSections {
-    @JsonProperty("summary")
-    private HereRouteSummary summary;
+public class HereRouteLength {
+    @JsonProperty("length")
+    private Integer length;
 }
