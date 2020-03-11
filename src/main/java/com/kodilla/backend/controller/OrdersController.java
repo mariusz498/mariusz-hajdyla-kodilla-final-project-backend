@@ -36,13 +36,13 @@ public class OrdersController {
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/orders")
+    @RequestMapping(method = RequestMethod.PUT, value = "/orders", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
         return orderMapper.mapToOrderDto(dbService.saveOrder(orderMapper.mapToOrder(orderDto)));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/orders", consumes = APPLICATION_JSON_VALUE)
-    public void createOrder(@RequestBody OrderDto orderDto) {
-        dbService.saveOrder(orderMapper.mapToOrder(orderDto));
+    @RequestMapping(method = RequestMethod.POST, value = "/orders", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public OrderDto createOrder(@RequestBody OrderDto orderDto) {
+        return orderMapper.mapToOrderDto(dbService.saveOrder(orderMapper.mapToOrder(orderDto)));
     }
 }
