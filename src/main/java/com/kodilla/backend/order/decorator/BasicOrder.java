@@ -1,21 +1,20 @@
 package com.kodilla.backend.order.decorator;
 
 public class BasicOrder implements OrderInterface {
-    private Double distance;
+    private Integer distance;
 
-    public BasicOrder(Double distance) {
+    public BasicOrder(Integer distance) {
         this.distance = distance;
     }
 
     @Override
-    public Double getDistance() {
+    public Integer getDistance() {
         return distance;
     }
     @Override
     public Double getCost() {
         return new Double(100.00 + 0.6 * distance);
     }
-
     @Override
     public String getDescription() {
         return "Land transport";

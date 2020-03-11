@@ -19,7 +19,7 @@ public class AbstractOrderDecorator implements OrderInterface {
     }
 
     @Override
-    public Double getDistance() {
+    public Integer getDistance() {
         return orderInterface.getDistance();
     }
 }

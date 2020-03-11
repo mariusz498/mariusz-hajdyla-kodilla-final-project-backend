@@ -3,9 +3,12 @@ package com.kodilla.backend.mapper;
 
 import com.kodilla.backend.domain.Location;
 import com.kodilla.backend.domain.LocationDto;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class LocationMapper {
     public Location mapToLocation(final LocationDto locationDto) {
         return new Location(
