@@ -35,9 +35,11 @@ public class DbService {
         return orderRepository.findById(id);
     }
     public List<Order> getOrdersByCompanyLogin(String login) {
-        Optional<Company> company = companyRepository.findByLogin(login);
-        //TODO finish request
+        Company company = companyRepository.findByLogin(login).orElse(new Company());
         List<Order> orders = new ArrayList<>();
+        if(company.getLogin() != null) {
+            orders = orderRepository.findAllByCompany(company);
+        }
         return orders;
     }
     public Order saveOrder(final Order order) {
