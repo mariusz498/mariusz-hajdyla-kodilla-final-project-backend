@@ -1,6 +1,9 @@
 package com.kodilla.backend.controller;
 
 
+import com.kodilla.backend.domain.Company;
+import com.kodilla.backend.domain.CompanyDto;
+import com.kodilla.backend.domain.Order;
 import com.kodilla.backend.domain.OrderDto;
 import com.kodilla.backend.domain.OrderNotFoundException;
 import com.kodilla.backend.mapper.OrderMapper;
@@ -28,6 +31,11 @@ public class OrdersController {
     @RequestMapping(method = RequestMethod.GET, value = "/orders/{orderId}")
     public OrderDto getOrder(@PathVariable Long orderId) throws OrderNotFoundException {
         return orderMapper.mapToOrderDto(dbService.getOrder(orderId).orElseThrow(OrderNotFoundException::new));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/orders/companyLogin={login}")
+    public List<OrderDto> getOrderByCompanyLogin(@PathVariable String login) {
+        return orderMapper.mapToOrderDtoList(dbService.getOrdersByCompanyLogin(login));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/orders/{orderId}")

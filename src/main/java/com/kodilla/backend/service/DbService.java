@@ -8,6 +8,8 @@ import com.kodilla.backend.repository.CompanyRepository;
 import com.kodilla.backend.repository.DriverRepository;
 import com.kodilla.backend.repository.LocationRepository;
 import com.kodilla.backend.repository.OrderRepository;
+
+import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,12 @@ public class DbService {
     }
     public Optional<Order> getOrder(Long id) {
         return orderRepository.findById(id);
+    }
+    public List<Order> getOrdersByCompanyLogin(String login) {
+        Optional<Company> company = companyRepository.findByLogin(login);
+        //TODO finish request
+        List<Order> orders = new ArrayList<>();
+        return orders;
     }
     public Order saveOrder(final Order order) {
         return orderRepository.save(order);
