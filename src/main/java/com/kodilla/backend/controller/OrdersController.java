@@ -30,7 +30,7 @@ public class OrdersController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/orders/companyLogin={login}")
-    public List<OrderDto> getOrderByCompanyLogin(@PathVariable String login) {
+    public List<OrderDto> getOrdersByCompanyLogin(@PathVariable String login) {
         return orderMapper.mapToOrderDtoList(dbService.getOrdersByCompanyLogin(login));
     }
 
