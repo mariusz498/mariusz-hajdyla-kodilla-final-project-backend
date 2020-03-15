@@ -13,7 +13,7 @@ public class LocationMapper {
     public Location mapToLocation(final LocationDto locationDto) {
         return new Location(
                 locationDto.getId(),
-                locationDto.getName(),
+                locationDto.getLabel(),
                 locationDto.getLattitude(),
                 locationDto.getLongitude(),
                 locationDto.getOrdersFrom(),
@@ -23,7 +23,7 @@ public class LocationMapper {
     public LocationDto mapToLocationDto(final Location location) {
         return new LocationDto(
                 location.getId(),
-                location.getName(),
+                location.getLabel(),
                 location.getLattitude(),
                 location.getLongitude(),
                 location.getOrdersFrom(),

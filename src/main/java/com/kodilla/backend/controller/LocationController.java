@@ -30,13 +30,20 @@ public class LocationController {
         return locationMapper.mapToLocationDtoList(dbService.getAllLocations());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/locations")
-    public LocationDto fetchLocation(@RequestParam String countryCode, @RequestParam String city, @RequestParam String query){
-        Double[] location = hereApiClient.getCityGeocode(city + ", " + countryCode);
-        List<HereApiLocation> locationList = hereApiClient.searchLocations(location[0], location[1], query, countryCode);
-        HereApiLocation locationFromApi = Optional.ofNullable(locationList.get(0)).orElse(new HereApiLocation());
-        Location castLocation = new Location(null, locationFromApi.getAddress().getLabel(), locationFromApi.getPosition().getLatitude(), locationFromApi.getPosition().getLongitude(), null, null);
-        String label = Optional.ofNullable(locationFromApi.getAddress().getLabel()).orElse("");
+    @RequestMapping(method = RequestMethod.GET, value = "/location")
+    public LocationDto fetchLocation(@RequestParam("countryCode") String countryCode, @RequestParam("city") String city, @RequestParam("query") String query){
+        List<Double> location = hereApiClient.getCityGeocode(city + ", " + countryCode);
+        List<HereApiLocation> locationList = hereApiClient.searchLocations(location.get(0), location.get(1), query, countryCode);
+        HereApiLocation locationFromApi;
+        Location castLocation = new Location();
+        if (locationList.isEmpty()) {
+            locationFromApi = new HereApiLocation();
+        }
+        else {
+            locationFromApi = locationList.get(0);
+            castLocation = new Location(null, locationFromApi.getAddress().getLabel(), locationFromApi.getPosition().getLatitude(), locationFromApi.getPosition().getLongitude(), null, null);
+        }
+        String label = Optional.ofNullable(castLocation.getLabel()).orElse("");
         Location locationFromDb = dbService.getLocationByLabel(label).orElse(new Location());
         if(locationFromDb.equals(castLocation)) {
             return locationMapper.mapToLocationDto(locationFromDb);
