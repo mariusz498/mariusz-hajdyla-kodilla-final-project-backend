@@ -47,7 +47,7 @@ public class HereApiClient {
                 .queryParam("apiKey", hereConfig.getApiKey())
                 .queryParam("at", lat.toString() + "," + lng.toString())
                 .queryParam("q", query)
-                .queryParam("in", "countryCode:" + countryCode)
+                .queryParam("countryCode", countryCode)
                 .build().encode().toUri();
         try {
             HereItem locationResponse = restTemplate.getForObject(url, HereItem.class);
@@ -69,9 +69,6 @@ public class HereApiClient {
                 .queryParam("transportMode", "truck")
                 .queryParam("return", "summary")
                 .build().encode().toUri();
-
-        System.out.println(url);
-
         try {
             HereApiRoutesExample routeResponse = restTemplate.getForObject(url, HereApiRoutesExample.class);
             HereApiRoute route = routeResponse.getRoutes().get(0);

@@ -31,9 +31,9 @@ public class LocationController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/location")
-    public LocationDto fetchLocation(@RequestParam("countryCode") String countryCode, @RequestParam("city") String city, @RequestParam("query") String query){
-        List<Double> location = hereApiClient.getCityGeocode(city + ", " + countryCode);
-        List<HereApiLocation> locationList = hereApiClient.searchLocations(location.get(0), location.get(1), query, countryCode);
+    public LocationDto fetchLocation(@RequestParam("code") String code, @RequestParam("city") String city, @RequestParam("query") String query){
+        List<Double> location = hereApiClient.getCityGeocode(code + "," + city);
+        List<HereApiLocation> locationList = hereApiClient.searchLocations(location.get(0), location.get(1), query, code);
         HereApiLocation locationFromApi;
         Location castLocation = new Location();
         if (locationList.isEmpty()) {
