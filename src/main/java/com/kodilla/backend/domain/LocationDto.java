@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LocationDto {
     private Long id;
-    private String name;
+    private String label;
     private Double lattitude;
     private Double longitude;
     private List<Order> ordersFrom;

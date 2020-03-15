@@ -23,6 +23,24 @@ public class HereApiClient {
     @Autowired
     private Template restTemplate;
 
+    public Double[] getCityGeocode(String query) {
+        URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getGeocodeEndpoint())
+                .queryParam("apiKey", hereConfig.getApiKey())
+                .queryParam("q", query)
+                .build().encode().toUri();
+        try {
+            HereItem geocodeResponse = restTemplate.getForObject(url, HereItem.class);
+            Double latitude = geocodeResponse.getLocations().get(0).getPosition().getLatitude();
+            Double longitude = geocodeResponse.getLocations().get(0).getPosition().getLongitude();
+            Double[] position = new Double[2];
+            position[0] = latitude;
+            position[1] = longitude;
+            return position;
+        } catch (RestClientException e) {
+            return new Double[0];
+        }
+    }
+
     public List<HereApiLocation> searchLocations(Double lat, Double lng, String query, String countryCode) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getSearchEndpoint())
@@ -31,8 +49,6 @@ public class HereApiClient {
                 .queryParam("q", query)
                 .queryParam("in", "countryCode:" + countryCode)
                 .build().encode().toUri();
-
-        System.out.println(url);
 
         try {
             HereItem locationResponse = restTemplate.getForObject(url, HereItem.class);

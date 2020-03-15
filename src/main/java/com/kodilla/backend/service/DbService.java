@@ -71,6 +71,10 @@ public class DbService {
     public Optional<Location> getLocation(Long id) {
         return locationRepository.findById(id);
     }
+    public Optional<Location> getLocationByLabel(String label) {
+        return locationRepository.findByLabel(label);
+    }
+
     public Location saveLocation(final Location location) {
         return locationRepository.save(location);
     }

@@ -12,6 +12,8 @@ public interface LocationRepository extends CrudRepository<Location, Long> {
     @Override
     Optional<Location> findById(Long id);
 
+    Optional<Location> findByLabel(String label);
+
     @Override
     <Location2 extends Location> Location2 save(Location2 location);
 

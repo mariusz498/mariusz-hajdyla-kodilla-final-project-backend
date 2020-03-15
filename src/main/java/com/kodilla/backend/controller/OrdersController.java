@@ -37,7 +37,6 @@ public class OrdersController {
     @RequestMapping(method = RequestMethod.DELETE, value = "/orders/{orderId}")
     public void deleteOrder(@PathVariable Long orderId){
         dbService.deleteOrder(orderId);
-
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/orders", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
