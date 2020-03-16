@@ -21,8 +21,8 @@ public class LocationMapper {
                 locationDto.getLabel(),
                 locationDto.getLatitude(),
                 locationDto.getLongitude(),
-                orderMapper.mapToOrderList(locationDto.getOrdersFrom()),
-                orderMapper.mapToOrderList(locationDto.getOrdersTo()));
+                locationDto.getOrdersFrom(),
+                locationDto.getOrdersTo());
     }
 
     public LocationDto mapToLocationDto(final Location location) {
@@ -31,8 +31,8 @@ public class LocationMapper {
                 location.getLabel(),
                 location.getLatitude(),
                 location.getLongitude(),
-                orderMapper.mapToOrderDtoList(location.getOrdersFrom()),
-                orderMapper.mapToOrderDtoList(location.getOrdersTo()));
+                location.getOrdersFrom(),
+                location.getOrdersTo());
     }
 
     public List<LocationDto> mapToLocationDtoList(final List<Location> locations) {

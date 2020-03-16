@@ -25,10 +25,10 @@ public class OrderMapper {
         return new Order(
                 orderDto.getId(),
                 orderDto.getDescription(),
-                companyMapper.mapToCompany(orderDto.getCompany()),
-                locationMapper.mapToLocation(orderDto.getOrigin()),
-                locationMapper.mapToLocation(orderDto.getDestination()),
-                Optional.ofNullable(driverMapper.mapToDriver(Optional.ofNullable(orderDto.getDriver()).orElse(null))).orElse(null),
+                orderDto.getCompany(),
+                orderDto.getOrigin(),
+                orderDto.getDestination(),
+                orderDto.getDriver(),
                 orderDto.getValue(),
                 orderDto.getCurrency(),
                 orderDto.getStatus());
@@ -38,10 +38,10 @@ public class OrderMapper {
         return new OrderDto(
                 order.getId(),
                 order.getDescription(),
-                companyMapper.mapToCompanyDto(order.getCompany()),
-                locationMapper.mapToLocationDto(order.getOrigin()),
-                locationMapper.mapToLocationDto(order.getDestination()),
-                driverMapper.mapToDriverDto(order.getDriver()),
+                order.getCompany(),
+                order.getOrigin(),
+                order.getDestination(),
+                order.getDriver(),
                 order.getValue(),
                 order.getCurrency(),
                 order.getStatus());
@@ -61,5 +61,18 @@ public class OrderMapper {
             orders.add(mapToOrder(orderDto));
         }
         return orders;
+    }
+
+    public OrderDto mapToCreatedOrderDto(final Order order) {
+        return new OrderDto(
+                order.getId(),
+                order.getDescription(),
+                order.getCompany(),
+                order.getOrigin(),
+                order.getDestination(),
+                null,
+                order.getValue(),
+                order.getCurrency(),
+                order.getStatus());
     }
 }

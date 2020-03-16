@@ -18,7 +18,7 @@ public class CompanyMapper {
                 companyDto.getId(),
                 companyDto.getLogin(),
                 companyDto.getPasswordMD5(),
-                orderMapper.mapToOrderList(companyDto.getOrders()));
+                companyDto.getOrders());
     }
     
     public CompanyDto mapToCompanyDto(final Company company) {
@@ -26,7 +26,7 @@ public class CompanyMapper {
                 company.getId(),
                 company.getLogin(),
                 company.getPasswordMd5(),
-                orderMapper.mapToOrderDtoList(company.getOrders()));
+                company.getOrders());
     }
     
     public List<CompanyDto> mapToCompanyDtoList(final List<Company> companies) {

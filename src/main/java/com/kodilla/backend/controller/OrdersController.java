@@ -52,10 +52,10 @@ public class OrdersController {
     @RequestMapping(method = RequestMethod.POST, value = "/orders", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public OrderDto createOrder(@RequestBody OrderRequestDto orderRequestDto) {
         Order order = orderProcessor.createOrder(orderRequestDto);
-        OrderDto response = orderMapper.mapToOrderDto(dbService.saveOrder(order));
-        System.out.println("Response: " + response.getId() + ", " + response.getDescription() + ", " + response.getCompany().getLogin()
-                + ", " + response.getOrigin().getLabel() + ", " + response.getDestination().getLabel()  + ", "
-                + ", " + response.getDriver()  + ", " + response.getValue()  + ", " + response.getCurrency()  + ", " + response.getStatus());
+        OrderDto response = orderMapper.mapToCreatedOrderDto(dbService.saveOrder(order));
+        System.out.println("Response: " + response.getId() + ", " + response.getDescription() + ", " + response.getOrigin().getLabel()
+                + ", " + response.getDestination().getLabel() + ", " + response.getDriver()  + ", " + response.getValue()  + ", "
+                + response.getCurrency()  + ", " + response.getStatus());
         return response;
     }
 }
