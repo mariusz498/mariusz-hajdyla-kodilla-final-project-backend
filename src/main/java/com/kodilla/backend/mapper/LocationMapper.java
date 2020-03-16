@@ -14,7 +14,7 @@ public class LocationMapper {
         return new Location(
                 locationDto.getId(),
                 locationDto.getLabel(),
-                locationDto.getLattitude(),
+                locationDto.getLatitude(),
                 locationDto.getLongitude(),
                 locationDto.getOrdersFrom(),
                 locationDto.getOrdersTo());
@@ -24,7 +24,7 @@ public class LocationMapper {
         return new LocationDto(
                 location.getId(),
                 location.getLabel(),
-                location.getLattitude(),
+                location.getLatitude(),
                 location.getLongitude(),
                 location.getOrdersFrom(),
                 location.getOrdersTo());

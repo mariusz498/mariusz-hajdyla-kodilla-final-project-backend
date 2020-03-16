@@ -12,7 +12,7 @@ import java.util.List;
 public class LocationDto {
     private Long id;
     private String label;
-    private Double lattitude;
+    private Double latitude;
     private Double longitude;
     private List<Order> ordersFrom;
     private List<Order> ordersTo;

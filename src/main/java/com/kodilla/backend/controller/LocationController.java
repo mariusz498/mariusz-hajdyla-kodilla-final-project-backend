@@ -42,6 +42,7 @@ public class LocationController {
         else {
             locationFromApi = locationList.get(0);
             castLocation = new Location(null, locationFromApi.getAddress().getLabel(), locationFromApi.getPosition().getLatitude(), locationFromApi.getPosition().getLongitude(), null, null);
+
         }
         String label = Optional.ofNullable(castLocation.getLabel()).orElse("");
         Location locationFromDb = dbService.getLocationByLabel(label).orElse(new Location());
