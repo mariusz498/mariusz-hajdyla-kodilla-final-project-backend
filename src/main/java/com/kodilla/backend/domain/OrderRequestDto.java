@@ -13,6 +13,6 @@ public class OrderRequestDto {
     private Company company;
     private LocationDto origin;
     private LocationDto destination;
-    private Map<String, String> options;
+    private Map<String, Boolean> options;
     private String currency;
 }

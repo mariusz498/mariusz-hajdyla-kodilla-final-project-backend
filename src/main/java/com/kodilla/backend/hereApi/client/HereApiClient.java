@@ -65,7 +65,7 @@ public class HereApiClient {
                 .queryParam("apiKey", hereConfig.getApiKey())
                 .queryParam("origin", orderRequest.getOrigin().getLattitude() + "," + orderRequest.getOrigin().getLongitude())
                 .queryParam("destination", orderRequest.getDestination().getLattitude() + "," + orderRequest.getDestination().getLongitude())
-                .queryParam("routingMode", orderRequest.getOptions().get(ofNullable("routingMode").orElse("short")))
+                .queryParam("routingMode", orderRequest.getOptions().get("routingMode"))
                 .queryParam("transportMode", "truck")
                 .queryParam("return", "summary")
                 .build().encode().toUri();

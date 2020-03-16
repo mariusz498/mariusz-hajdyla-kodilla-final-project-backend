@@ -33,13 +33,13 @@ public class OrderProcessor {
     public OrderDto createOrder(OrderRequestDto request) {
         Integer distance = hereApiClient.searchRouteLength(request);
         OrderInterface theOrder = new BasicOrder(distance);
-        if(request.getOptions().containsValue("fast")) {
+        if(request.getOptions().get("Express").equals(true)) {
             theOrder = new ExpressDecorator(theOrder);
         }
-        if(request.getOptions().get("ADR").equals("yes")) {
+        if(request.getOptions().get("ADR").equals(true)) {
             theOrder = new ADRDecorator(theOrder);
         }
-        if(request.getOptions().get("Fragile").equals("yes")) {
+        if(request.getOptions().get("Fragile").equals(true)) {
             theOrder = new FragileDecorator(theOrder);
         }
         Double value;
