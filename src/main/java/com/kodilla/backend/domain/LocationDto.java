@@ -14,6 +14,6 @@ public class LocationDto {
     private String label;
     private Double latitude;
     private Double longitude;
-    private List<Order> ordersFrom;
-    private List<Order> ordersTo;
+    private List<OrderDto> ordersFrom;
+    private List<OrderDto> ordersTo;
 }

@@ -31,4 +31,12 @@ public class DriverMapper {
         }
         return driverDtos;
     }
+
+    public List<Driver> mapToDriverList(final List<DriverDto> driverDtos) {
+        List<Driver> drivers = new ArrayList<>();
+        for(DriverDto driverDto : driverDtos) {
+            drivers.add(mapToDriver(driverDto));
+        }
+        return drivers;
+    }
 }

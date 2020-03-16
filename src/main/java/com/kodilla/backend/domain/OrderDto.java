@@ -12,10 +12,10 @@ import lombok.Setter;
 public class OrderDto {
     private Long id;
     private String description;
-    private Company company;
-    private Location origin;
-    private Location destination;
-    private Driver driver;
+    private CompanyDto company;
+    private LocationDto origin;
+    private LocationDto destination;
+    private DriverDto driver;
     private Double value;
     private String currency;
     private String status;

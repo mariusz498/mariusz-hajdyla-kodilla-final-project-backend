@@ -3,6 +3,7 @@ package com.kodilla.backend.mapper;
 
 import com.kodilla.backend.domain.Location;
 import com.kodilla.backend.domain.LocationDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,14 +11,18 @@ import java.util.List;
 
 @Component
 public class LocationMapper {
+
+    @Autowired
+    private OrderMapper orderMapper;
+
     public Location mapToLocation(final LocationDto locationDto) {
         return new Location(
                 locationDto.getId(),
                 locationDto.getLabel(),
                 locationDto.getLatitude(),
                 locationDto.getLongitude(),
-                locationDto.getOrdersFrom(),
-                locationDto.getOrdersTo());
+                orderMapper.mapToOrderList(locationDto.getOrdersFrom()),
+                orderMapper.mapToOrderList(locationDto.getOrdersTo()));
     }
 
     public LocationDto mapToLocationDto(final Location location) {
@@ -26,8 +31,8 @@ public class LocationMapper {
                 location.getLabel(),
                 location.getLatitude(),
                 location.getLongitude(),
-                location.getOrdersFrom(),
-                location.getOrdersTo());
+                orderMapper.mapToOrderDtoList(location.getOrdersFrom()),
+                orderMapper.mapToOrderDtoList(location.getOrdersTo()));
     }
 
     public List<LocationDto> mapToLocationDtoList(final List<Location> locations) {
@@ -36,5 +41,14 @@ public class LocationMapper {
             locationDtos.add(mapToLocationDto(location));
         }
         return locationDtos;
+    }
+
+
+    public List<Location> mapToLocationList(final List<LocationDto> locationDtos) {
+        List<Location> locations = new ArrayList<>();
+        for(LocationDto locationDto : locationDtos) {
+            locations.add(mapToLocation(locationDto));
+        }
+        return locations;
     }
 }
