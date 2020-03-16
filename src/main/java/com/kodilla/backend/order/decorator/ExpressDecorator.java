@@ -7,7 +7,7 @@ public class ExpressDecorator extends AbstractOrderDecorator {
 
         @Override
         public Double getCost() {
-            return super.getCost() + (new Double(getDistance() * 0.2));
+            return super.getCost() + (new Double(getDistance() * 0.0002));
         }
 
         @Override

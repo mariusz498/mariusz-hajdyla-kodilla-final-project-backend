@@ -13,7 +13,7 @@ public class BasicOrder implements OrderInterface {
     }
     @Override
     public Double getCost() {
-        return new Double(100.00 + 0.6 * distance);
+        return new Double(100.00 + 0.6 * 0.001*distance);
     }
     @Override
     public String getDescription() {
