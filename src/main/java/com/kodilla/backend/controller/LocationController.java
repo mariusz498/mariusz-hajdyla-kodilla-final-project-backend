@@ -6,6 +6,7 @@ import com.kodilla.backend.hereApi.client.HereApiClient;
 import com.kodilla.backend.hereApi.domain.HereApiLocation;
 import com.kodilla.backend.mapper.LocationMapper;
 import com.kodilla.backend.service.DbService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class LocationController {
         }
         else {
             locationFromApi = locationList.get(0);
-            castLocation = new Location(null, locationFromApi.getAddress().getLabel(), locationFromApi.getPosition().getLatitude(), locationFromApi.getPosition().getLongitude(), null, null);
+            castLocation = new Location(null, locationFromApi.getAddress().getLabel(), locationFromApi.getPosition().getLatitude(), locationFromApi.getPosition().getLongitude(), new ArrayList<>(),  new ArrayList<>());
 
         }
         String label = Optional.ofNullable(castLocation.getLabel()).orElse("");

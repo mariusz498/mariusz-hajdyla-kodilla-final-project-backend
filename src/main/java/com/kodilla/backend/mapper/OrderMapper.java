@@ -2,6 +2,7 @@ package com.kodilla.backend.mapper;
 
 import com.kodilla.backend.domain.Order;
 import com.kodilla.backend.domain.OrderDto;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,7 @@ public class OrderMapper {
                 companyMapper.mapToCompany(orderDto.getCompany()),
                 locationMapper.mapToLocation(orderDto.getOrigin()),
                 locationMapper.mapToLocation(orderDto.getDestination()),
-                driverMapper.mapToDriver(orderDto.getDriver()),
+                Optional.ofNullable(driverMapper.mapToDriver(Optional.ofNullable(orderDto.getDriver()).orElse(null))).orElse(null),
                 orderDto.getValue(),
                 orderDto.getCurrency(),
                 orderDto.getStatus());

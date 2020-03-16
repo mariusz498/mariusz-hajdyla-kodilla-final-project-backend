@@ -1,5 +1,6 @@
 package com.kodilla.backend.controller;
 
+import com.kodilla.backend.domain.Order;
 import com.kodilla.backend.domain.OrderDto;
 import com.kodilla.backend.domain.OrderNotFoundException;
 import com.kodilla.backend.domain.OrderRequestDto;
@@ -50,7 +51,11 @@ public class OrdersController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/orders", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public OrderDto createOrder(@RequestBody OrderRequestDto orderRequestDto) {
-        OrderDto orderDto = orderProcessor.createOrder(orderRequestDto);
-        return orderMapper.mapToOrderDto(dbService.saveOrder(orderMapper.mapToOrder(orderDto)));
+        Order order = orderProcessor.createOrder(orderRequestDto);
+        OrderDto response = orderMapper.mapToOrderDto(dbService.saveOrder(order));
+        System.out.println("Response: " + response.getId() + ", " + response.getDescription() + ", " + response.getCompany().getLogin()
+                + ", " + response.getOrigin().getLabel() + ", " + response.getDestination().getLabel()  + ", "
+                + ", " + response.getDriver()  + ", " + response.getValue()  + ", " + response.getCurrency()  + ", " + response.getStatus());
+        return response;
     }
 }
