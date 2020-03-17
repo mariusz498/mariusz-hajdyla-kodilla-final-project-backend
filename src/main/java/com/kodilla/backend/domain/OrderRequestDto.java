@@ -3,7 +3,6 @@ package com.kodilla.backend.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.util.Map;
 
 @AllArgsConstructor

@@ -1,7 +1,9 @@
 package com.kodilla.backend.mapper;
 
+import com.kodilla.backend.controller.CompanyController;
 import com.kodilla.backend.domain.Order;
 import com.kodilla.backend.domain.OrderDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,11 +11,18 @@ import java.util.List;
 
 @Component
 public class OrderMapper {
+
+    @Autowired
+    private CompanyController companyController;
+
+    @Autowired
+    private CompanyMapper companyMapper;
+
     public Order mapToOrder(final OrderDto orderDto) {
         return new Order(
                 orderDto.getId(),
                 orderDto.getDescription(),
-                orderDto.getCompany(),
+                companyMapper.mapToCompany(companyController.getCompanyByLogin(orderDto.getCompany())),
                 orderDto.getOrigin(),
                 orderDto.getDestination(),
                 orderDto.getDriver(),
@@ -26,7 +35,7 @@ public class OrderMapper {
         return new OrderDto(
                 order.getId(),
                 order.getDescription(),
-                order.getCompany(),
+                order.getCompany().getLogin(),
                 order.getOrigin(),
                 order.getDestination(),
                 order.getDriver(),

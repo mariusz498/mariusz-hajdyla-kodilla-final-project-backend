@@ -33,13 +33,13 @@ public class OrderProcessor {
     public OrderDto createOrder(OrderRequestDto request) {
         Integer distance = hereApiClient.searchRouteLength(request);
         OrderInterface theOrder = new BasicOrder(distance);
-        if(request.getOptions().get("Express").equals(true)) {
+        if(request.getOptions().get("Express")) {
             theOrder = new ExpressDecorator(theOrder);
         }
-        if(request.getOptions().get("ADR").equals(true)) {
+        if(request.getOptions().get("ADR")) {
             theOrder = new ADRDecorator(theOrder);
         }
-        if(request.getOptions().get("Fragile").equals(true)) {
+        if(request.getOptions().get("Fragile")) {
             theOrder = new FragileDecorator(theOrder);
         }
         Double value;
@@ -53,7 +53,7 @@ public class OrderProcessor {
 
         OrderDto createdOrder = new OrderDto();
         createdOrder.setDescription(theOrder.getDescription());
-        createdOrder.setCompany(request.getCompany());
+        createdOrder.setCompany(request.getCompany().getLogin());
         createdOrder.setOrigin(locationMapper.mapToLocation(request.getOrigin()));
         createdOrder.setDestination(locationMapper.mapToLocation(request.getDestination()));
         createdOrder.setValue(value);
