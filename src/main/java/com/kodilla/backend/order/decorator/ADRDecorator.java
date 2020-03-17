@@ -1,5 +1,7 @@
 package com.kodilla.backend.order.decorator;
 
+import java.text.DecimalFormat;
+
 public class ADRDecorator extends AbstractOrderDecorator {
     public ADRDecorator(OrderInterface theOrder) {
         super(theOrder);
@@ -7,7 +9,9 @@ public class ADRDecorator extends AbstractOrderDecorator {
 
     @Override
     public Double getCost() {
-        return super.getCost() + (new Double(getDistance() * 0.0001 + 150));
+        DecimalFormat dec = new DecimalFormat("#0.00");
+        Double result = (new Double(dec.format(new Double(getDistance() * 0.0001 + 150))));
+        return super.getCost() + (result);
     }
 
     @Override
