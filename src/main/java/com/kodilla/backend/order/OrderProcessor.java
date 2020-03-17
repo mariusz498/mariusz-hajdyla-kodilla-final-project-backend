@@ -26,9 +26,6 @@ public class OrderProcessor {
     private LocationMapper locationMapper;
 
     @Autowired
-    private OrderMapper orderMapper;
-
-    @Autowired
     private CompanyMapper companyMapper;
 
     @Autowired

@@ -76,9 +76,6 @@ public class DbService {
     public Location saveLocation(final Location location) {
         return locationRepository.save(location);
     }
-    public void deleteLocation(Long id){
-        locationRepository.deleteById(id);
-    }
 
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
