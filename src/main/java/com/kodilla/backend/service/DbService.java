@@ -1,9 +1,6 @@
 package com.kodilla.backend.service;
 
-import com.kodilla.backend.domain.Company;
-import com.kodilla.backend.domain.Driver;
-import com.kodilla.backend.domain.Location;
-import com.kodilla.backend.domain.Order;
+import com.kodilla.backend.domain.*;
 import com.kodilla.backend.repository.CompanyRepository;
 import com.kodilla.backend.repository.DriverRepository;
 import com.kodilla.backend.repository.LocationRepository;
@@ -67,8 +64,8 @@ public class DbService {
     public List<Location> getAllLocations() {
         return locationRepository.findAll();
     }
-    public Optional<Location> getLocation(Long id) {
-        return locationRepository.findById(id);
+    public Location getLocation(Long id) {
+        return locationRepository.findById(id).orElse(new Location());
     }
     public Optional<Location> getLocationByLabel(String label) {
         return locationRepository.findByLabel(label);

@@ -13,5 +13,5 @@ public class DriverDto {
     private Long id;
     private String login;
     private String passwordMD5;
-    private List<Order> orders;
+    private List<Long> orders;
 }

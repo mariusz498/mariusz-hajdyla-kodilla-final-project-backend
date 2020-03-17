@@ -9,7 +9,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 public class OrderRequestDto {
-    private CompanyDto company;
+    private String company;
     private LocationDto origin;
     private LocationDto destination;
     private Map<String, Boolean> options;

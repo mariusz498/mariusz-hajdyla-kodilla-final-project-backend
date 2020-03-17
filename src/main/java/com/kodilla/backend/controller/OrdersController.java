@@ -8,6 +8,7 @@ import com.kodilla.backend.mapper.OrderMapper;
 import com.kodilla.backend.order.OrderProcessor;
 import com.kodilla.backend.service.DbService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,8 +54,8 @@ public class OrdersController {
     public OrderDto createOrder(@RequestBody OrderRequestDto orderRequestDto) {
         Order order = orderProcessor.createOrder(orderRequestDto);
         OrderDto response = orderMapper.mapToCreatedOrderDto(dbService.saveOrder(order));
-        System.out.println("Response: " + response.getId() + ", " + response.getDescription() + ", " + response.getOrigin().getLabel()
-                + ", " + response.getDestination().getLabel() + ", " + response.getDriver()  + ", " + response.getValue()  + ", "
+        System.out.println("Response: " + response.getId() + ", " + response.getDescription() + ", " + response.getOrigin()
+                + ", " + response.getDestination() + ", " + Optional.ofNullable(response.getDriver()).orElse("") + ", " + response.getValue()  + ", "
                 + response.getCurrency()  + ", " + response.getStatus());
         return response;
     }

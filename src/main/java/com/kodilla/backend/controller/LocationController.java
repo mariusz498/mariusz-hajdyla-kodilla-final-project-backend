@@ -31,6 +31,11 @@ public class LocationController {
         return locationMapper.mapToLocationDtoList(dbService.getAllLocations());
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/locations/id={id}")
+    public LocationDto getLocationById(@PathVariable Long id) {
+        return locationMapper.mapToLocationDto(dbService.getLocation(id));
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/location")
     public LocationDto fetchLocation(@RequestParam("code") String code, @RequestParam("city") String city, @RequestParam("query") String query){
         List<Double> location = hereApiClient.getCityGeocode(code + "," + city);

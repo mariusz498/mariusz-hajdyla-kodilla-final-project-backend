@@ -1,9 +1,7 @@
 package com.kodilla.backend.order;
 
 import com.kodilla.backend.currencyApi.client.CurrencyApiClient;
-import com.kodilla.backend.domain.Order;
-import com.kodilla.backend.domain.OrderDto;
-import com.kodilla.backend.domain.OrderRequestDto;
+import com.kodilla.backend.domain.*;
 import com.kodilla.backend.hereApi.client.HereApiClient;
 import com.kodilla.backend.mapper.CompanyMapper;
 import com.kodilla.backend.mapper.LocationMapper;
@@ -13,6 +11,7 @@ import com.kodilla.backend.order.decorator.BasicOrder;
 import com.kodilla.backend.order.decorator.ExpressDecorator;
 import com.kodilla.backend.order.decorator.FragileDecorator;
 import com.kodilla.backend.order.decorator.OrderInterface;
+import com.kodilla.backend.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +29,9 @@ public class OrderProcessor {
 
     @Autowired
     private CurrencyApiClient currencyApiClient;
+
+    @Autowired
+    private DbService dbService;
 
     public Order createOrder(OrderRequestDto request) {
         Integer distance = hereApiClient.searchRouteLength(request);
@@ -54,9 +56,10 @@ public class OrderProcessor {
 
         Order createdOrder = new Order();
         createdOrder.setDescription(theOrder.getDescription());
-        createdOrder.setCompany(companyMapper.mapToCompany(request.getCompany()));
+        createdOrder.setCompany(dbService.getCompanyByLogin(request.getCompany()).orElse(new Company()));
         createdOrder.setOrigin(locationMapper.mapToLocation(request.getOrigin()));
         createdOrder.setDestination(locationMapper.mapToLocation(request.getDestination()));
+        createdOrder.setDriver(new Driver());
         createdOrder.setValue(value);
         createdOrder.setCurrency(request.getCurrency());
         createdOrder.setStatus("Available");

@@ -13,9 +13,9 @@ public class OrderDto {
     private Long id;
     private String description;
     private String company;
-    private Location origin;
-    private Location destination;
-    private Driver driver;
+    private Long origin;
+    private Long destination;
+    private String driver;
     private Double value;
     private String currency;
     private String status;

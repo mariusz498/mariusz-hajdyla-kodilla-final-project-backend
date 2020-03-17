@@ -20,5 +20,5 @@ public class CompanyDto {
     @JsonProperty("passwordMD5")
     private String passwordMD5;
     @JsonProperty("orders")
-    private List<Order> orders;
+    private List<Long> orders;
 }
