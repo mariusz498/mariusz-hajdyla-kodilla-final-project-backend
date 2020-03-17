@@ -3,6 +3,7 @@ package com.kodilla.backend.hereApi.client;
 import com.kodilla.backend.domain.LocationDto;
 import com.kodilla.backend.domain.OrderRequestDto;
 import com.kodilla.backend.hereApi.domain.HereApiLocation;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,22 @@ public class HereApiClientTestSuite {
     @Autowired
     private HereApiClient hereApiClient;
 
-
-    //TODO uzupełnić testy o asercje
     @Test
-    public void getLocationsTest() {
-        //Given
-        List<HereApiLocation> response = hereApiClient.searchLocations(42.36399, -71.05493, "restaurant", "USA");
+    public void getCityGeocodeTest() {
         //When
-        response.stream().forEach(r -> System.out.println(r.getAddress().getLabel() + ", " + r.getPosition().getLatitude() + r.getPosition().getLongitude()));
+        List<Double> position = hereApiClient.getCityGeocode("Kraków, Poland");
         //Then
+        Assert.assertEquals(2, position.size());
+        Assert.assertNotEquals(0.0, position.get(0));
+        Assert.assertNotEquals(0.0, position.get(1));
+    }
+
+    @Test
+    public void searchLocationsTest() {
+        //When
+        List<HereApiLocation> response = hereApiClient.searchLocations(42.36399, -71.05493, "restaurant", "USA");
+        //Then
+        Assert.assertTrue(response.size() > 0);
     }
 
     @Test

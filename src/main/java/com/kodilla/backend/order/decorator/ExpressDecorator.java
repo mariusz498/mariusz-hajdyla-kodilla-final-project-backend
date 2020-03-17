@@ -18,6 +18,6 @@ public class ExpressDecorator extends AbstractOrderDecorator {
 
         @Override
         public String getDescription() {
-            return super.getDescription() + ", express";
+            return super.getDescription() + ", Express";
         }
 }

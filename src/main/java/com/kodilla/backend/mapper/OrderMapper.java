@@ -18,12 +18,6 @@ public class OrderMapper {
 
     @Autowired
     private CompanyMapper companyMapper;
-    
-    @Autowired
-    private LocationMapper locationMapper;
-    
-    @Autowired
-    private DriverMapper driverMapper;
 
     public Order mapToOrder(final OrderDto orderDto) {
         return new Order(

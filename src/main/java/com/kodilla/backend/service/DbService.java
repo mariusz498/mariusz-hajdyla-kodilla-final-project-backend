@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -74,7 +73,6 @@ public class DbService {
     public Optional<Location> getLocationByLabel(String label) {
         return locationRepository.findByLabel(label);
     }
-
     public Location saveLocation(final Location location) {
         return locationRepository.save(location);
     }

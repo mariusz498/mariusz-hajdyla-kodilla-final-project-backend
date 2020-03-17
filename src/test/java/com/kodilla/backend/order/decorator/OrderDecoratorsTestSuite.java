@@ -11,8 +11,10 @@ public class OrderDecoratorsTestSuite {
         OrderInterface theOrder = new BasicOrder(100000);
         //When
         Double theCost = theOrder.getCost();
+        String description = theOrder.getDescription();
         //Then
         Assert.assertEquals(160.0, theCost, 0.01);
+        Assert.assertEquals("Land transport", description);
     }
 
     @Test
@@ -22,7 +24,35 @@ public class OrderDecoratorsTestSuite {
         theOrder = new ExpressDecorator(theOrder);
         //When
         Double theCost = theOrder.getCost();
+        String description = theOrder.getDescription();
         //Then
         Assert.assertEquals(180.00, theCost, 0.01);
+        Assert.assertEquals("Land transport, Express", description);
+    }
+
+    @Test
+    public void testADRDecorator() {
+        //Given
+        OrderInterface theOrder = new BasicOrder(100000);
+        theOrder = new ADRDecorator(theOrder);
+        //When
+        Double theCost = theOrder.getCost();
+        String description = theOrder.getDescription();
+        //Then
+        Assert.assertEquals(320.00, theCost, 0.01);
+        Assert.assertEquals("Land transport, ADR", description);
+    }
+
+    @Test
+    public void testFragileDecorator() {
+        //Given
+        OrderInterface theOrder = new BasicOrder(100000);
+        theOrder = new FragileDecorator(theOrder);
+        //When
+        Double theCost = theOrder.getCost();
+        String description = theOrder.getDescription();
+        //Then
+        Assert.assertEquals(170.00, theCost, 0.01);
+        Assert.assertEquals("Land transport, FRAGILE LOAD", description);
     }
 }

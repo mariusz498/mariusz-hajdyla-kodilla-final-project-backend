@@ -17,10 +17,17 @@ public class CurrencyApiClientTestSuite {
 
     @Test
     public void convertTest() {
-        //Given & When
+        // When
         Double value = currencyApiClient.convert("PLN");
         //Then
         Assert.assertTrue(value > 0.0);
-        System.out.println(value);
+    }
+
+    @Test
+    public void illegalQueryConvertTest() {
+        // When
+        Double value = currencyApiClient.convert("");
+        //Then
+        Assert.assertEquals(-1.0, value, 0.001);
     }
 }
