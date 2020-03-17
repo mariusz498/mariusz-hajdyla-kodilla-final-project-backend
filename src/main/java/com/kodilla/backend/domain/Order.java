@@ -33,7 +33,7 @@ public class Order {
     private String description;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "company_id")
     private Company company;
 

@@ -7,7 +7,7 @@ public class FragileDecorator extends AbstractOrderDecorator {
 
     @Override
     public Double getCost() {
-        return super.getCost() + (new Double(getDistance() * 0.1));
+        return super.getCost() + (new Double(getDistance() * 0.0001));
     }
 
     @Override

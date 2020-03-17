@@ -4,10 +4,15 @@ import com.kodilla.backend.domain.Company;
 import com.kodilla.backend.domain.CompanyDto;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CompanyMapper {
+
+    @Autowired
+    private OrderMapper orderMapper;
+
     public Company mapToCompany(final CompanyDto companyDto) {
         return new Company(
                 companyDto.getId(),
@@ -30,5 +35,13 @@ public class CompanyMapper {
             companyDtos.add(mapToCompanyDto(company));
         }
         return companyDtos;
+    }
+
+    public List<Company> mapToCompanyList(final List<CompanyDto> companyDtos) {
+        List<Company> companies = new ArrayList<>();
+        for(CompanyDto companyDto : companyDtos) {
+            companies.add(mapToCompany(companyDto));
+        }
+        return companies;
     }
 }

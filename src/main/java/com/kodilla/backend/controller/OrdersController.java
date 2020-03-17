@@ -1,8 +1,11 @@
 package com.kodilla.backend.controller;
 
+import com.kodilla.backend.domain.Order;
 import com.kodilla.backend.domain.OrderDto;
 import com.kodilla.backend.domain.OrderNotFoundException;
+import com.kodilla.backend.domain.OrderRequestDto;
 import com.kodilla.backend.mapper.OrderMapper;
+import com.kodilla.backend.order.OrderProcessor;
 import com.kodilla.backend.service.DbService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ public class OrdersController {
     private OrderMapper orderMapper;
     @Autowired
     private DbService dbService;
+    @Autowired
+    private OrderProcessor orderProcessor;
 
     @RequestMapping(method = RequestMethod.GET, value = "/orders")
     public List<OrderDto> getOrders() {
@@ -45,7 +50,12 @@ public class OrdersController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/orders", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public OrderDto createOrder(@RequestBody OrderDto orderDto) {
-        return orderMapper.mapToOrderDto(dbService.saveOrder(orderMapper.mapToOrder(orderDto)));
+    public OrderDto createOrder(@RequestBody OrderRequestDto orderRequestDto) {
+        Order order = orderProcessor.createOrder(orderRequestDto);
+        OrderDto response = orderMapper.mapToCreatedOrderDto(dbService.saveOrder(order));
+        System.out.println("Response: " + response.getId() + ", " + response.getDescription() + ", " + response.getOrigin().getLabel()
+                + ", " + response.getDestination().getLabel() + ", " + response.getDriver()  + ", " + response.getValue()  + ", "
+                + response.getCurrency()  + ", " + response.getStatus());
+        return response;
     }
 }

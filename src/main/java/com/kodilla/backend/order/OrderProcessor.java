@@ -5,6 +5,7 @@ import com.kodilla.backend.domain.Order;
 import com.kodilla.backend.domain.OrderDto;
 import com.kodilla.backend.domain.OrderRequestDto;
 import com.kodilla.backend.hereApi.client.HereApiClient;
+import com.kodilla.backend.mapper.CompanyMapper;
 import com.kodilla.backend.mapper.LocationMapper;
 import com.kodilla.backend.mapper.OrderMapper;
 import com.kodilla.backend.order.decorator.ADRDecorator;
@@ -28,9 +29,12 @@ public class OrderProcessor {
     private OrderMapper orderMapper;
 
     @Autowired
+    private CompanyMapper companyMapper;
+
+    @Autowired
     private CurrencyApiClient currencyApiClient;
 
-    public OrderDto createOrder(OrderRequestDto request) {
+    public Order createOrder(OrderRequestDto request) {
         Integer distance = hereApiClient.searchRouteLength(request);
         OrderInterface theOrder = new BasicOrder(distance);
         if(request.getOptions().get("Express")) {
@@ -51,9 +55,9 @@ public class OrderProcessor {
             value = theOrder.getCost();
         }
 
-        OrderDto createdOrder = new OrderDto();
+        Order createdOrder = new Order();
         createdOrder.setDescription(theOrder.getDescription());
-        createdOrder.setCompany(request.getCompany().getLogin());
+        createdOrder.setCompany(companyMapper.mapToCompany(request.getCompany()));
         createdOrder.setOrigin(locationMapper.mapToLocation(request.getOrigin()));
         createdOrder.setDestination(locationMapper.mapToLocation(request.getDestination()));
         createdOrder.setValue(value);

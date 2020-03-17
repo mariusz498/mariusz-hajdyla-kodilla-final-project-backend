@@ -7,7 +7,7 @@ public class ADRDecorator extends AbstractOrderDecorator {
 
     @Override
     public Double getCost() {
-        return super.getCost() + (new Double(getDistance() * 0.1 + 150));
+        return super.getCost() + (new Double(getDistance() * 0.0001 + 150));
     }
 
     @Override

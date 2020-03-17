@@ -36,8 +36,8 @@ public class Location {
     private String label;
 
     @NotNull
-    @Column(name = "lattitude")
-    private Double lattitude;
+    @Column(name = "latitude")
+    private Double latitude;
 
     @NotNull
     @Column(name = "longitude")

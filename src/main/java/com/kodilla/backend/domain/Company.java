@@ -40,7 +40,7 @@ public class Company {
     @OneToMany(
             targetEntity = Order.class,
             mappedBy = "company",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER
     )
     private List<Order> orders;

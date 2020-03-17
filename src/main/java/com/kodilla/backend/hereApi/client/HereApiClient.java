@@ -60,12 +60,15 @@ public class HereApiClient {
     }
 
     public Integer searchRouteLength(OrderRequestDto orderRequest) {
-
+        String routingMode = "short";
+        if(orderRequest.getOptions().get("Express")) {
+            routingMode = "fast";
+        }
         URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getRoutingEndpoint())
                 .queryParam("apiKey", hereConfig.getApiKey())
-                .queryParam("origin", orderRequest.getOrigin().getLattitude() + "," + orderRequest.getOrigin().getLongitude())
-                .queryParam("destination", orderRequest.getDestination().getLattitude() + "," + orderRequest.getDestination().getLongitude())
-                .queryParam("routingMode", orderRequest.getOptions().get("routingMode"))
+                .queryParam("origin", orderRequest.getOrigin().getLatitude() + "," + orderRequest.getOrigin().getLongitude())
+                .queryParam("destination", orderRequest.getDestination().getLatitude() + "," + orderRequest.getDestination().getLongitude())
+                .queryParam("routingMode", routingMode)
                 .queryParam("transportMode", "truck")
                 .queryParam("return", "summary")
                 .build().encode().toUri();
