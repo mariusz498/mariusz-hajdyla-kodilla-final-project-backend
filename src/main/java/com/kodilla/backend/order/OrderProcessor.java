@@ -12,6 +12,8 @@ import com.kodilla.backend.order.decorator.ExpressDecorator;
 import com.kodilla.backend.order.decorator.FragileDecorator;
 import com.kodilla.backend.order.decorator.OrderInterface;
 import com.kodilla.backend.service.DbService;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,12 +48,15 @@ public class OrderProcessor {
             theOrder = new FragileDecorator(theOrder);
         }
         Double value;
+        Double result;
         if(!request.getCurrency().equals("EUR")) {
             Double ratio = currencyApiClient.convert(request.getCurrency());
             value = theOrder.getCost() * 1.05 * ratio;
+            result = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
         }
         else {
             value = theOrder.getCost();
+            result = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
         }
 
         Order createdOrder = new Order();
@@ -60,7 +65,7 @@ public class OrderProcessor {
         createdOrder.setOrigin(locationMapper.mapToLocation(request.getOrigin()));
         createdOrder.setDestination(locationMapper.mapToLocation(request.getDestination()));
         createdOrder.setDriver(new Driver());
-        createdOrder.setValue(value);
+        createdOrder.setValue(result);
         createdOrder.setCurrency(request.getCurrency());
         createdOrder.setStatus("Available");
 
