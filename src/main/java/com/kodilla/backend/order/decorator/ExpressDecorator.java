@@ -1,5 +1,7 @@
 package com.kodilla.backend.order.decorator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class ExpressDecorator extends AbstractOrderDecorator {
@@ -9,8 +11,8 @@ public class ExpressDecorator extends AbstractOrderDecorator {
 
         @Override
         public Double getCost() {
-            DecimalFormat dec = new DecimalFormat("#0.00");
-            Double result = (new Double(getDistance() * 0.0002));
+            Double value = getDistance() * 0.0002;
+            Double result = BigDecimal.valueOf(value).setScale(3, RoundingMode.HALF_UP).doubleValue();
             return super.getCost() + result;
         }
 

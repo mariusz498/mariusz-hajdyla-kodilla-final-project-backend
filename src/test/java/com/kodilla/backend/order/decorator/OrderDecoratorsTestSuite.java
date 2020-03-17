@@ -8,7 +8,7 @@ public class OrderDecoratorsTestSuite {
     @Test
     public void testBasicOrder() {
         //Given
-        OrderInterface theOrder = new BasicOrder(100);
+        OrderInterface theOrder = new BasicOrder(100000);
         //When
         Double theCost = theOrder.getCost();
         //Then
@@ -18,7 +18,7 @@ public class OrderDecoratorsTestSuite {
     @Test
     public void testExpressDecorator() {
         //Given
-        OrderInterface theOrder = new BasicOrder(100);
+        OrderInterface theOrder = new BasicOrder(100000);
         theOrder = new ExpressDecorator(theOrder);
         //When
         Double theCost = theOrder.getCost();

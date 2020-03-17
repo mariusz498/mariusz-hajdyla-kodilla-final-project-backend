@@ -1,5 +1,7 @@
 package com.kodilla.backend.order.decorator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class BasicOrder implements OrderInterface {
@@ -15,8 +17,8 @@ public class BasicOrder implements OrderInterface {
     }
     @Override
     public Double getCost() {
-        DecimalFormat dec = new DecimalFormat("#0.00");
-        Double result = (new Double(dec.format(new Double(100.00 + 0.6 * 0.001 * distance))));
+        Double value = 100.00 + 0.6 * 0.001 * distance;
+        Double result = BigDecimal.valueOf(value).setScale(3, RoundingMode.HALF_UP).doubleValue();
         return result;
     }
     @Override
