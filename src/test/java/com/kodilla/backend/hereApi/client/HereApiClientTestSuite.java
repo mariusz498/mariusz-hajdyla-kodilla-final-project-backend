@@ -36,8 +36,8 @@ public class HereApiClientTestSuite {
         //Given
         LocationDto origin = new LocationDto(1L, "origin", 49.550667, 19.746695, null, null);
         LocationDto destination = new LocationDto(2L, "dest", 55.617927, 12.650670, null, null);
-        Map<String, String> options = new HashMap<>();
-        options.put("routingMode", "short");
+        Map<String, Boolean> options = new HashMap<>();
+        options.put("Express", true);
         OrderRequestDto orderRequest = new OrderRequestDto(null, origin, destination, options, "EUR");
         //When
         Integer length = hereApiClient.searchRouteLength(orderRequest);
