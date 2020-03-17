@@ -42,13 +42,4 @@ public class LocationMapper {
         }
         return locationDtos;
     }
-
-
-    public List<Location> mapToLocationList(final List<LocationDto> locationDtos) {
-        List<Location> locations = new ArrayList<>();
-        for(LocationDto locationDto : locationDtos) {
-            locations.add(mapToLocation(locationDto));
-        }
-        return locations;
-    }
 }

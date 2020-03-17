@@ -18,7 +18,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)

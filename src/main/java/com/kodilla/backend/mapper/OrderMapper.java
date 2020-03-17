@@ -53,14 +53,6 @@ public class OrderMapper {
        return orderDtos;
     }
 
-    public List<Order> mapToOrderList(final List<OrderDto> orderDtos) {
-        List<Order> orders = new ArrayList<>();
-        for(OrderDto orderDto : orderDtos) {
-            orders.add(mapToOrder(orderDto));
-        }
-        return orders;
-    }
-
     public OrderDto mapToCreatedOrderDto(final Order order) {
         return new OrderDto(
                 order.getId(),
