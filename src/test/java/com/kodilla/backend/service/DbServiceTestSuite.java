@@ -233,7 +233,7 @@ public class DbServiceTestSuite {
         Location location = new Location(123L, "label", 123.4, 234.5, new ArrayList<>(), new ArrayList<>());
         when(locationRepository.findById(123L)).thenReturn(Optional.of(location));
         //When
-        Location result = service.getLocation(123L).orElse(new Location());
+        Location result = service.getLocation(123L);
         //Then
         Assert.assertEquals("label", result.getLabel());
     }

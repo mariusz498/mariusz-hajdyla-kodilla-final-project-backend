@@ -2,14 +2,19 @@ package com.kodilla.backend.mapper;
 
 import com.kodilla.backend.domain.Driver;
 import com.kodilla.backend.domain.DriverDto;
+import com.kodilla.backend.domain.Order;
+import com.kodilla.backend.service.DbService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,6 +22,9 @@ public class DriverMapperTestSuite {
 
     @Autowired
     private DriverMapper mapper;
+
+    @Mock
+    private DbService dbService;
 
     @Test
     public void MapToDriverTest() {
@@ -52,7 +60,7 @@ public class DriverMapperTestSuite {
         Driver driver2 = new Driver(1223L, "driver2", "password2", new ArrayList<>());
         List<Driver> list = new ArrayList<>();
         list.add(driver);
-        list.add(driver2);
+        list.add(driver2);;
         //When
         List<DriverDto> resultList = mapper.mapToDriverDtoList(list);
         //Then

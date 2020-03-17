@@ -1,14 +1,18 @@
 package com.kodilla.backend.mapper;
 
 import com.kodilla.backend.domain.*;
+import com.kodilla.backend.service.DbService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,21 +21,25 @@ public class CompanyMapperTestSuite {
     @Autowired
     private CompanyMapper mapper;
 
+    @Mock
+    private DbService dbService;
+
     @Test
     public void MapToCompanyTest() {
         //Given
         Order order = new Order(12L, "desc", null, new Location(), new Location(), new Driver(), 123.2, "EUR", "Available");
-        List<Order> orders = new ArrayList<>();
+        List<Long> orders = new ArrayList<>();
         CompanyDto companyDto = new CompanyDto(123L, "login", "adsdas", orders);
-        orders.add(order);
+        orders.add(12L);
         companyDto.setOrders(orders);
+        when(dbService.getOrder(12L)).thenReturn(java.util.Optional.of(order));
         //When
         Company company = mapper.mapToCompany(companyDto);
         //Then
         Assert.assertEquals(companyDto.getId(), company.getId());
         Assert.assertEquals(companyDto.getLogin(), company.getLogin());
         Assert.assertEquals(companyDto.getPasswordMD5(), company.getPasswordMd5());
-        Assert.assertEquals(companyDto.getOrders(), company.getOrders());
+        Assert.assertEquals(1, company.getOrders().size());
     }
     
     @Test
@@ -49,25 +57,26 @@ public class CompanyMapperTestSuite {
         Assert.assertEquals(company.getId(), companyDto.getId());
         Assert.assertEquals(company.getLogin(), companyDto.getLogin());
         Assert.assertEquals(company.getPasswordMd5(), companyDto.getPasswordMD5());
-        Assert.assertEquals(company.getOrders(), companyDto.getOrders());
     }
 
     @Test
     public void MapToCompanyListTest() {
         //Given
         Order order = new Order(12L, "desc", null, new Location(), new Location(), new Driver(), 123.2, "EUR", "Available");
-        List<Order> orders = new ArrayList<>();
-        orders.add(order);
+        List<Long> orders = new ArrayList<>();
+        orders.add(order.getId());
         CompanyDto companyDto = new CompanyDto(123L, "login", "adsdas", orders);
         companyDto.setOrders(orders);
         Order order2 = new Order(123L, "de2sc", null, new Location(), new Location(), new Driver(), 1323.2, "EUR", "Available");
-        List<Order> orders2 = new ArrayList<>();
-        orders2.add(order2);
+        List<Long> orders2 = new ArrayList<>();
+        orders2.add(order2.getId());
         CompanyDto companyDto2 = new CompanyDto(1223L, "logain", "adsddas", orders2);
         companyDto2.setOrders(orders2);
         List<CompanyDto> companyDtoList = new ArrayList<>();
         companyDtoList.add(companyDto);
         companyDtoList.add(companyDto2);
+        when(dbService.getOrder(12L)).thenReturn(java.util.Optional.of(order));
+        when(dbService.getOrder(123L)).thenReturn(java.util.Optional.of(order2));
         //When
         List<Company> companyList = mapper.mapToCompanyList(companyDtoList);
         //Then
