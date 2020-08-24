@@ -1,21 +1,20 @@
 package com.kodilla.backend.order;
 
 import com.kodilla.backend.currencyApi.client.CurrencyApiClient;
-import com.kodilla.backend.domain.*;
+import com.kodilla.backend.domain.Company;
+import com.kodilla.backend.domain.Driver;
+import com.kodilla.backend.domain.Order;
+import com.kodilla.backend.domain.OrderRequestDto;
 import com.kodilla.backend.hereApi.client.HereApiClient;
 import com.kodilla.backend.mapper.CompanyMapper;
 import com.kodilla.backend.mapper.LocationMapper;
-import com.kodilla.backend.mapper.OrderMapper;
-import com.kodilla.backend.order.decorator.ADRDecorator;
-import com.kodilla.backend.order.decorator.BasicOrder;
-import com.kodilla.backend.order.decorator.ExpressDecorator;
-import com.kodilla.backend.order.decorator.FragileDecorator;
-import com.kodilla.backend.order.decorator.OrderInterface;
+import com.kodilla.backend.order.decorator.*;
 import com.kodilla.backend.service.DbService;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Component
 public class OrderProcessor {
@@ -52,12 +51,11 @@ public class OrderProcessor {
         if(!request.getCurrency().equals("EUR")) {
             Double ratio = currencyApiClient.convert(request.getCurrency());
             value = theOrder.getCost() * 1.05 * ratio;
-            result = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
         }
         else {
             value = theOrder.getCost();
-            result = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
         }
+        result = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
         Order createdOrder = new Order();
         createdOrder.setDescription(theOrder.getDescription());
