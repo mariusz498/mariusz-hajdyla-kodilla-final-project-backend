@@ -1,12 +1,10 @@
 package com.kodilla.backend.mapper;
 
-import com.kodilla.backend.controller.CompanyController;
 import com.kodilla.backend.domain.Company;
 import com.kodilla.backend.domain.Driver;
 import com.kodilla.backend.domain.Order;
 import com.kodilla.backend.domain.OrderDto;
 import com.kodilla.backend.service.DbService;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,10 +31,8 @@ public class OrderMapper {
     }
     
     public OrderDto mapToOrderDto(final Order order) {
-        String login = null;
-        if (!order.getDriver().equals(null)) {
-            login = order.getDriver().getLogin();
-        }
+        String login = order.getDriver().getLogin();
+
         return new OrderDto(
                 order.getId(),
                 order.getDescription(),
