@@ -15,12 +15,10 @@ public class CurrencyApiClient {
     @Autowired
     private Template restTemplate;
 
-    private String endpoint = "https://api.exchangeratesapi.io/latest?symbols=";
-
     public Double convert(String symbol) {
+        String endpoint = "https://api.exchangeratesapi.io/latest?symbols=";
         URI url = UriComponentsBuilder.fromHttpUrl(endpoint + symbol).build().encode().toUri();
         CurrencyRates response = restTemplate.getForObject(url, CurrencyRates.class);
-        Double value = ofNullable(response.getRates().get(symbol)).orElse(-1.0);
-        return value;
+        return ofNullable(response.getRates().get(symbol)).orElse(-1.0);
     }
 }
