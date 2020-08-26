@@ -1,7 +1,7 @@
 package com.kodilla.backend.currencyApi.client;
 
 import com.kodilla.backend.currencyApi.domain.CurrencyRates;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -11,10 +11,10 @@ import java.net.URI;
 import static java.util.Optional.ofNullable;
 
 @Component
+@NoArgsConstructor
 public class CurrencyApiClient {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public Double convert(String symbol) {
         String endpoint = "https://api.exchangeratesapi.io/latest?symbols=";

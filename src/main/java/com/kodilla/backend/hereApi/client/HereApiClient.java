@@ -22,8 +22,7 @@ public class HereApiClient {
     @Autowired
     private HereConfig hereConfig;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public List<Double> getCityGeocode(String query) {
         URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getGeocodeEndpoint())

@@ -16,7 +16,7 @@ public class BasicOrder implements OrderInterface {
     }
     @Override
     public Double getCost() {
-        Double value = 100.00 + 0.6 * 0.001 * distance;
+        double value = 100.00 + 0.6 * 0.001 * distance;
         return BigDecimal.valueOf(value).setScale(3, RoundingMode.HALF_UP).doubleValue();
     }
     @Override
