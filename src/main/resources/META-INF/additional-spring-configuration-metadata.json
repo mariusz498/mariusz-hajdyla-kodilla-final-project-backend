@@ -1,8 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "hereapi.apiKey",
-      "type": "java.lang.String",
-      "description": "Key string to HereAPI account."
-  }
-] }
