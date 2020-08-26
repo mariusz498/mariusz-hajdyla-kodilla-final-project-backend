@@ -1,13 +1,14 @@
 package com.kodilla.backend.hereApi.client;
 
-import com.kodilla.backend.controller.Template;
 import com.kodilla.backend.domain.OrderRequestDto;
-import com.kodilla.backend.hereApi.domain.*;
 import com.kodilla.backend.hereApi.config.HereConfig;
+import com.kodilla.backend.hereApi.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class HereApiClient {
     private HereConfig hereConfig;
 
     @Autowired
-    private Template restTemplate;
+    private RestTemplate restTemplate;
 
     public List<Double> getCityGeocode(String query) {
         URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getGeocodeEndpoint())
