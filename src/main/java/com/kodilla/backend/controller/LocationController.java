@@ -37,6 +37,8 @@ public class LocationController {
         return locationMapper.mapToLocationDto(dbService.getLocation(id));
     }
 
+    //TODO: update fetchLocation to check database before creating new location from API
+
     @RequestMapping(method = RequestMethod.GET, value = "/location")
     public LocationDto fetchLocation(@RequestParam("code") String code, @RequestParam("city") String city, @RequestParam("query") String query){
         List<Double> location = hereApiClient.getCityGeocode(code + "," + city);
