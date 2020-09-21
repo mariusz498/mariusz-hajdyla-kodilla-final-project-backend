@@ -60,7 +60,7 @@ public class DriverMapperTestSuite {
         Driver driver2 = new Driver(1223L, "driver2", "password2", new ArrayList<>());
         List<Driver> list = new ArrayList<>();
         list.add(driver);
-        list.add(driver2);;
+        list.add(driver2);
         //When
         List<DriverDto> resultList = mapper.mapToDriverDtoList(list);
         //Then

@@ -1,16 +1,18 @@
 package com.kodilla.backend.hereApi.client;
 
-import com.kodilla.backend.controller.Template;
 import com.kodilla.backend.domain.OrderRequestDto;
-import com.kodilla.backend.hereApi.domain.*;
 import com.kodilla.backend.hereApi.config.HereConfig;
+import com.kodilla.backend.hereApi.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Optional.ofNullable;
 
@@ -20,8 +22,7 @@ public class HereApiClient {
     @Autowired
     private HereConfig hereConfig;
 
-    @Autowired
-    private Template restTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public List<Double> getCityGeocode(String query) {
         URI url = UriComponentsBuilder.fromHttpUrl(hereConfig.getGeocodeEndpoint())
@@ -30,7 +31,7 @@ public class HereApiClient {
                 .build().encode().toUri();
         try {
             HereItem geocodeResponse = restTemplate.getForObject(url, HereItem.class);
-            Double latitude = geocodeResponse.getLocations().get(0).getPosition().getLatitude();
+            Double latitude = Objects.requireNonNull(geocodeResponse).getLocations().get(0).getPosition().getLatitude();
             Double longitude = geocodeResponse.getLocations().get(0).getPosition().getLongitude();
             List<Double> position = new ArrayList<>();
             position.add(latitude);
@@ -52,6 +53,7 @@ public class HereApiClient {
         try {
             HereItem locationResponse = restTemplate.getForObject(url, HereItem.class);
             List<HereApiLocation> locationList;
+            assert locationResponse != null;
             locationList = ofNullable(locationResponse.getLocations()).orElse(new HereItem().getLocations());
             return locationList;
         } catch (RestClientException e) {
@@ -74,6 +76,7 @@ public class HereApiClient {
                 .build().encode().toUri();
         try {
             HereApiRoutesExample routeResponse = restTemplate.getForObject(url, HereApiRoutesExample.class);
+            assert routeResponse != null;
             HereApiRoute route = routeResponse.getRoutes().get(0);
             List<HereApiRouteSections> sections = ofNullable(route.getSections()).orElse(new ArrayList<>());
             Integer length = 0;
@@ -82,7 +85,8 @@ public class HereApiClient {
             }
             return length;
         } catch (RestClientException e) {
+            System.out.println(e);
         }
-        return new Integer(-1);
+        return -1;
     }
 }

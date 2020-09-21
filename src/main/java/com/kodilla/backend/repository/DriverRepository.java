@@ -1,6 +1,5 @@
 package com.kodilla.backend.repository;
 
-import com.kodilla.backend.domain.Company;
 import com.kodilla.backend.domain.Driver;
 import org.springframework.data.repository.CrudRepository;
 

@@ -6,11 +6,12 @@ import com.kodilla.backend.hereApi.client.HereApiClient;
 import com.kodilla.backend.hereApi.domain.HereApiLocation;
 import com.kodilla.backend.mapper.LocationMapper;
 import com.kodilla.backend.service.DbService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -36,25 +37,26 @@ public class LocationController {
         return locationMapper.mapToLocationDto(dbService.getLocation(id));
     }
 
+    //TODO: update fetchLocation to check database before creating new location from API
+
     @RequestMapping(method = RequestMethod.GET, value = "/location")
     public LocationDto fetchLocation(@RequestParam("code") String code, @RequestParam("city") String city, @RequestParam("query") String query){
         List<Double> location = hereApiClient.getCityGeocode(code + "," + city);
         List<HereApiLocation> locationList = hereApiClient.searchLocations(location.get(0), location.get(1), query, code);
         HereApiLocation locationFromApi;
-        Location castLocation = new Location();
         if (locationList.isEmpty()) {
-            locationFromApi = new HereApiLocation();
+            return new LocationDto();
         }
         else {
             locationFromApi = locationList.get(0);
-            castLocation = new Location(null, locationFromApi.getAddress().getLabel(), locationFromApi.getPosition().getLatitude(), locationFromApi.getPosition().getLongitude(), new ArrayList<>(),  new ArrayList<>());
-
-        }
-        String label = Optional.ofNullable(castLocation.getLabel()).orElse("");
-        Location locationFromDb = dbService.getLocationByLabel(label).orElse(new Location());
-        if(locationFromDb.equals(castLocation)) {
-            return locationMapper.mapToLocationDto(locationFromDb);
-        }
+            Location castLocation = new Location(null, locationFromApi.getAddress().getLabel(), locationFromApi.getPosition().getLatitude(),
+                    locationFromApi.getPosition().getLongitude(), new ArrayList<>(), new ArrayList<>());
+            String label = Optional.ofNullable(castLocation.getLabel()).orElse("");
+            Location locationFromDb = dbService.getLocationByLabel(label).orElse(new Location());
+            if (locationFromDb.equals(castLocation)) {
+                return locationMapper.mapToLocationDto(locationFromDb);
+            }
         return locationMapper.mapToLocationDto(castLocation);
+        }
     }
 }

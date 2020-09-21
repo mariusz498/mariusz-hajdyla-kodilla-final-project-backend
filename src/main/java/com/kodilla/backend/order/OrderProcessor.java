@@ -47,7 +47,7 @@ public class OrderProcessor {
             theOrder = new FragileDecorator(theOrder);
         }
         Double value;
-        Double result;
+        double result;
         if(!request.getCurrency().equals("EUR")) {
             Double ratio = currencyApiClient.convert(request.getCurrency());
             value = theOrder.getCost() * 1.05 * ratio;
