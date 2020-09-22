@@ -37,11 +37,9 @@ public class LocationController {
         return locationMapper.mapToLocationDto(dbService.getLocation(id));
     }
 
-    //TODO: update fetchLocation to check database before creating new location from API
-
     @RequestMapping(method = RequestMethod.GET, value = "/location")
     public LocationDto fetchLocation(@RequestParam("country") String countryName, @RequestParam("code") String code, @RequestParam("city") String city, @RequestParam("query") String query) {
-        //check database for location from query + city + postcode (*) + country
+        //TODO: check database for location from query + city + postcode (*) + country
         List<Double> location = hereApiClient.getCityGeocode(code + "," + city);
         List<HereApiLocation> locationList = hereApiClient.searchLocations(location.get(0), location.get(1), query, code);
         if (locationList.isEmpty()) {
@@ -56,6 +54,7 @@ public class LocationController {
             if (locationFromDb.equals(castLocation)) {
                 return locationMapper.mapToLocationDto(locationFromDb);
             }
+            //TODO: save new location do Db
         return locationMapper.mapToLocationDto(castLocation);
         }
     }

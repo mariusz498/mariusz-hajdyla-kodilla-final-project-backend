@@ -10,11 +10,9 @@ import com.kodilla.backend.mapper.CompanyMapper;
 import com.kodilla.backend.mapper.LocationMapper;
 import com.kodilla.backend.order.decorator.*;
 import com.kodilla.backend.service.DbService;
+import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Component
 public class OrderProcessor {
@@ -55,7 +53,7 @@ public class OrderProcessor {
         else {
             value = theOrder.getCost();
         }
-        result = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        result = Precision.round(value, 2);
 
         Order createdOrder = new Order();
         createdOrder.setDescription(theOrder.getDescription());
