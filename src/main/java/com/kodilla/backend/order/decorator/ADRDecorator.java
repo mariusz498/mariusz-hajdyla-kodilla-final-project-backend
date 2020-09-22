@@ -1,7 +1,6 @@
 package com.kodilla.backend.order.decorator;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import org.apache.commons.math3.util.Precision;
 
 public class ADRDecorator extends AbstractOrderDecorator {
     public ADRDecorator(OrderInterface theOrder) {
@@ -11,7 +10,7 @@ public class ADRDecorator extends AbstractOrderDecorator {
     @Override
     public Double getCost() {
         double value = getDistance() * 0.0001 + 150;
-        Double result = BigDecimal.valueOf(value).setScale(3, RoundingMode.HALF_UP).doubleValue();
+        Double result = Precision.round(value, 2);
         return super.getCost() + result;
     }
 

@@ -1,7 +1,6 @@
 package com.kodilla.backend.order.decorator;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import org.apache.commons.math3.util.Precision;
 
 public class BasicOrder implements OrderInterface {
     private final Integer distance;
@@ -17,7 +16,7 @@ public class BasicOrder implements OrderInterface {
     @Override
     public Double getCost() {
         double value = 100.00 + 0.6 * 0.001 * distance;
-        return BigDecimal.valueOf(value).setScale(3, RoundingMode.HALF_UP).doubleValue();
+        return Precision.round(value, 2);
     }
     @Override
     public String getDescription() {
